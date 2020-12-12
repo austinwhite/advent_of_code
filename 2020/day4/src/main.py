@@ -28,18 +28,15 @@ class Passport:
         if all is not None:
             self.__fill_info_from_list(all)
     
-    def info_is_valid(self, optional=[]):
+    def info_is_valid(self, check_format=False, optional=[]):
         for key, value in self.info.items():
-            if value is None and key not in optional or not self.__check_info_format(key):
+            if value is None and key not in optional or check_format is True and not self.__check_info_format(key):
                 return False
-            
         return True
 
     def __check_info_format(self, field):
         if field == "cid":
             return True
-        if self.info[field] == None:
-            return False
         valid = False
         pattern = re.compile(self.info_format[field])
         valid = bool(pattern.match(self.info[field]))
@@ -58,17 +55,7 @@ class Passport:
                 valid = 59 <= int(val) <= 76
             else:
                 valid = False
-        
         return valid
-
-    def print_info(self, frame=False, omit=[]):
-        if frame:
-            print("-------------")
-        for key, value in self.info.items():
-            if key not in omit:
-                print(key, ":", value)
-        if frame:
-            print("-------------\n")
 
     def __set_info_field(self, field, value):
         if field in self.info:
@@ -97,9 +84,13 @@ with open("../input/input.txt") as file:
                 curr_info.append(field.split(":"))
 
 valid_passports = 0
+valid_formats = 0
 
 for passport in passports:
     if passport.info_is_valid(optional=["cid"]):
         valid_passports += 1
+    if passport.info_is_valid(optional=["cid"], check_format=True):
+        valid_formats += 1
 
-print(valid_passports)
+print("complete info:", valid_passports)
+print("with correct format:", valid_formats)

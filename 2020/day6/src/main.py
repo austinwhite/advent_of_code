@@ -15,6 +15,7 @@ with open("../input/input.txt") as file:
                     any_yes += 1
                 elif char in yes:
                     yes[char] += 1
+                    
 print("any yes:", any_yes)
 
 #

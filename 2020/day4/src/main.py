@@ -75,7 +75,7 @@ passports = []
 with open("../input/input.txt") as file:
     curr_info = []
     for line in file:
-        if line == "\n" or line == None:
+        if line == "\n":
             passports.append(make_new_passport(curr_info))
             curr_info = []
         else:

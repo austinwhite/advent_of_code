@@ -1,6 +1,6 @@
 def binary_space_partition(bsp, i, lower, upper):
     if i == len(bsp)-1:
-        return lower if bsp[i] == 'F' else upper
+        return lower if bsp[i] == 'F' or bsp[i] == 'L' else upper
     middle = (lower+upper)//2
     if bsp[i] == 'F' or bsp[i] == 'L':
         return binary_space_partition(bsp, i+1, lower, middle)
